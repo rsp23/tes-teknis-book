@@ -16,7 +16,17 @@ mongoose.connect(process.env.MONGODB_URI)
     .catch((err) => console.log('Failed to connect to MongoDB', err));
 
 app.get('/', (req, res) => {
-    res.send("hallo kamu berhasil");
+    
+    res.status(200).json({
+        message: "Teas teknis",
+        endpoints: {
+            getAllBooks: "GET /books",
+            getBookById: "GET /books/{id}",
+            createBook: "POST /books (body: { title, author, year, read })",
+            updateBook: "PUT /books/{id}",
+            deleteBook: "DELETE /books/{id}"
+        }
+    });
 });
 
 
