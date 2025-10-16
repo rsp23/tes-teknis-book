@@ -10,14 +10,10 @@ app.use(express.json());
 
 const dbURL = process.env.MONGODB_URI;
 
-mongoose.connect(dbURL)
-.then(() => {
-    console.log("Berhasil konek mongodb");
-    app.listen(port, ()=> {
-        console.log(`server berjalan di ${port}`);
-    });
-})
-.catch(err => console.log("gagal terhubung dengan database mongo db", err));
+mongoose.set("strictQuery", false);
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch((err) => console.log('Failed to connect to MongoDB', err));
 
 app.get('/', (req, res) => {
     res.send("hallo kamu berhasil");
@@ -25,5 +21,7 @@ app.get('/', (req, res) => {
 
 
 app.use('/books', bookRoutes);
+
+module.exports = app;
 
 
